@@ -10,3 +10,6 @@ import Foundation
 
 println("Hello, World!")
 
+var test : Double = 3.0
+let test2 = 5
+
