@@ -29,3 +29,8 @@ let (name,age) = tuple1
 let (name2,_) = tuple1
 let tuple2 = (first:200,second:300)
 
+let opString : String? = "Chen"
+println(opString)
+let imopString : String! = "Chen"
+println(imopString)
+assert(imopString,"nil value!")
