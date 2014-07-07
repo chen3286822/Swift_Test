@@ -34,3 +34,79 @@ println(opString)
 let imopString : String! = "Chen"
 println(imopString)
 assert(imopString,"nil value!")
+println("there are \(countElements(imopString)) characters")
+
+//array
+var heros : String[] = ["coco","PA","SA"]
+heros += "TA"
+heros += ["TS","TB"]
+
+//dictionary
+var phone : Dictionary<String,int> = ["Chen":158,"Zizi":151]
+println("there are \(phone.count) numbers")
+
+//...
+func printMax(numbers : Int...)
+{
+	var result : Int = 0
+	for number in numbers
+	{
+		result += number
+	}
+	println("the amount of these numbers is \(result)")
+}
+printMax(5,3,1,8,0)
+
+//int-out
+func doubleFirst(inout first : Int)
+{
+	first = first * 2;
+}
+var first = 5
+print("\(first) double is")
+doubleFirst(&first)
+println("\(first)")
+
+//closure
+var country = ["China","Japan","Russia","America"]
+sort(country, {(s1:String,s2:String)->Bool in
+	return s1 > s2
+})
+// sort(country,{s1,s2 in return s1 > s2})
+// sort(country,{s1,s2 in s1 > s2})
+// sort(country,{$0 > $1})
+// sort(country, >)
+
+//enum
+enum Direction
+{
+	case North
+	case South
+	case East
+	case West
+}
+let myDir = Direction.West
+
+enum Color
+{
+	case Red(Int)
+	case Blue(String)
+}
+let red = Color.Red(256)
+let blue = Color.Blue("Blue")
+switch red
+{
+case .Red(let value):
+	println("red color is \(value)")
+case .Blue(let msg):
+	println("this is" + msg + "color")
+}
+
+//Raw Value
+enum Ascii
+{
+	case Tab = "\t"
+	case Enter = "\n"
+}
+let character = Ascii.Tab.toRaw()
+let anotherChar = Ascii.fromRaw("\n")
