@@ -34,7 +34,49 @@ println(opString)
 let imopString : String! = "Chen"
 println(imopString)
 assert(imopString,"nil value!")
-println("there are \(countElements(imopString)) characters")
+println("there are \(countElements(imopString!)) characters")
+
+let myArray : Int[] = [1,2,3]
+myArray[0] = 3
+
+for i in 1...5
+{
+    print("\(i) ")
+}
+println()
+
+for character in "Hello,World"
+{
+    print(character + " ")
+}
+
+switch opString!
+{
+    case "Chen":
+    println("Yes")
+    case "Zizi":
+    println("No")
+default:
+    println("Nothing")
+}
+
+let pt = (3,3)
+switch pt
+{
+case let(x,y) where x == y:
+    println("\(x) and \(y) are same")
+    fallthrough
+case (_,_):
+    println("haha")
+case (_,3):
+    println("haha2")
+}
+
+func sayHello()
+{
+    println("Hello")
+}
+sayHello()
 
 //array
 var heros : String[] = ["coco","PA","SA"]
@@ -42,7 +84,7 @@ heros += "TA"
 heros += ["TS","TB"]
 
 //dictionary
-var phone : Dictionary<String,int> = ["Chen":158,"Zizi":151]
+var phone : Dictionary<String,Int> = ["Chen":158,"Zizi":151]
 println("there are \(phone.count) numbers")
 
 //...
@@ -63,7 +105,7 @@ func doubleFirst(inout first : Int)
 	first = first * 2;
 }
 var first = 5
-print("\(first) double is")
+print("\(first) double is ")
 doubleFirst(&first)
 println("\(first)")
 
@@ -103,10 +145,28 @@ case .Blue(let msg):
 }
 
 //Raw Value
-enum Ascii
+enum Ascii : Character
 {
 	case Tab = "\t"
 	case Enter = "\n"
 }
 let character = Ascii.Tab.toRaw()
 let anotherChar = Ascii.fromRaw("\n")
+
+//class
+class Building
+{
+    var height = 300
+    var floor = 80
+}
+var empireBuilding = Building()
+empireBuilding.height = 450
+empireBuilding.floor = 120
+let testBuilding = empireBuilding
+empireBuilding.height = 300
+println("test building's height is \(testBuilding.height)")
+if(empireBuilding === testBuilding)
+{
+    println("there are the same!")
+}
+
