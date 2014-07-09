@@ -170,3 +170,48 @@ if(empireBuilding === testBuilding)
     println("there are the same!")
 }
 
+//array copy
+var array1 = [4,7,2,6]
+var array2 = array1
+var array3 = array1.unshare()
+array1[0] = 3
+println("array2[0] is \(array2[0]), and array3[0] is \(array3[0])")
+
+//lazy
+class Reader
+{
+	@lazy var reader = Building()
+}
+var myReader = Reader()
+
+//setter getter
+//willset didset
+struct iphone
+{
+	var name = "5s"
+	{
+		willSet
+		{
+			println("name will be \(newValue)")
+		}
+		didSet
+		{
+			println("old name is \(oldValue)")
+		}
+	}
+	var size : Int
+	{
+		return 4.5
+	}
+	var dpi : Int
+	{
+		get
+		{
+			return 500
+		}
+		set
+		{
+			dpi = newValue
+		}
+	}
+}
