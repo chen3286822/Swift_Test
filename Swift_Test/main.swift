@@ -215,3 +215,86 @@ struct iphone
 		}
 	}
 }
+
+//mutating
+struct Point
+{
+	var x = 1
+	mutating func modifyBy(newValue : int)
+	{
+		x = newValue
+	}
+}
+var myPoint = Point(x:1)
+myPoint.modifyBy(3)
+println("new x is \(myPoint.x)")
+
+//type methods
+class Aclass
+{
+	class func describe()
+	{
+		println("this is class A")
+	}
+}
+Aclass.describe()
+struct Bstruct
+{
+	static func describe()
+	{
+		println("this is struct b")
+	}
+}
+Bstruct.describe()
+
+//subscript
+struct Matrix
+{
+	var grid : int[]
+	init(rows : int,column : int)
+	{
+		grid = Array(count : rows*column,repeatedValue : 0)
+	}
+	subscript(row : int,column : int) -> int
+	{
+		get
+		{
+			return grid[(row*column)+column]
+		}
+		set
+		{
+			grid[(row*column)+column] = newValue
+		}
+		
+	}
+}
+var matrix = Matrix(rows : 3,column : 4)
+matrix[2][3] = 5
+
+//inherit
+class Vehicle
+{
+	var numOfWheels : Int
+	func des()
+	{
+		println("It has \(numOfWheels) wheels")
+	}
+	init()
+	{
+		numOfWheels = 0
+	}
+}
+@final class Bicycle : Vehicle
+{
+	init()
+	{
+		super.init()
+		numOfWheels = 2
+	}
+	override func des()
+	{
+		println("The bike has \(numOfWheels) wheels")
+	}
+}
+var bike = Bicycle()
+bike.des()
