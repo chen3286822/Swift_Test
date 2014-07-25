@@ -298,3 +298,208 @@ class Vehicle
 }
 var bike = Bicycle()
 bike.des()
+
+//weak reference
+class Person
+{
+	var house : Apattment ?
+	deinit
+	{
+		println("deinit person")
+	}
+}
+
+class Apartment
+{
+	weak var person : Person?
+	deinit
+	{
+		println("deinit apartment")
+	}
+}
+
+var person : Person?
+var apartment : Apartment?
+person = Person()
+apartment = Apartment()
+person!.house = apartment
+apartment!.person = person
+
+person = nil
+apartment = nil
+
+//is as
+class Media
+{
+	var name
+	init(name : String)
+	{
+		self.name = name
+	}
+}
+class Movie
+{
+	var director
+	init(name : String, director : String)
+	{
+		self.director = director
+		super.init(name)
+	}
+}
+class Song
+{
+	var artist
+	init(name : String, artist : String)
+	{
+		self.artist = artist
+		super.init(name)
+		}
+}
+let medias = [
+	Movie("kings","Steve"),
+	Song("Lose yourself","Eminme"),
+	Movie("Who","Pig")
+]
+for item in medias
+{
+	if item is Movie
+	{
+		let movie = item as Movie
+		println("the \(movie.name) is a movie, the director is \(movie.director)")
+	}
+	else if item is Song
+	{
+		let song = item as Song
+		println("the \(song.name) is a song, the artist is \(song.artist)")
+	}
+}
+
+//extensions
+extension Media
+{
+	var size : Int
+	{
+		return 500
+	}
+}
+
+//protocal
+protocal MyProtocal
+{
+	func showName()
+}
+protocal AnotherProtocal
+{
+	var age : Int
+	var name : String
+}
+extension Media : MyProtocal
+{
+	func showName()
+	{
+		println("name")
+	}
+}
+extension Media : AnotherProtocal
+{
+	var age : Int = 10
+	var name = "Media"
+}
+func celebrate(celebrator : protocal<MyProtocal,AnotherProtocal>)
+{
+	celebrator.showName()
+	println("\(celebrator.age)")
+}
+var gaga = Media()
+celebrate(gaga)
+
+//optional protocal
+@objc protocal Area
+{
+	@optional var area : Int
+}
+@objc class Square
+{
+	var squareArea : Area?
+	func getSquare()
+	{
+		println(squareArea?.area?)
+	}
+}
+class TrueArea : Area
+{
+	var area : Int = 3
+}
+var square = Square()
+square.squareArea = TrueArea()
+square.getSquare()
+
+//template
+func swapTwoValue<T>(inout a : T, inout b : T)
+{
+	let temp = a
+	a = b
+	b = temp
+}
+var aInt = 3
+var bInt = 7
+swapTwoValue(&aInt, &bInt)
+
+//where
+func compareAge<
+C1 : AnotherProtocal, C2 : AnotherProtocal
+where C1.name = C2.name>
+(first : C1, second : C2) -> Bool
+{
+	if first.age == second.age
+	{
+		return true
+	}
+	return false
+}
+class Film : AnotherProtocal
+{
+	var age = 10
+	var name = "Film"
+}
+var film = Film()
+compareAge(film, gaga)
+
+//operator overload
+struct Vector2D
+{
+	var x = 0
+	var y = 0
+}
+@infix func +(left : Vector2D, right : Vector2D)
+{
+	return Vector2D(x: left.x+right.x, y: left.y+right.y)
+}
+let vector1 = Vector2D(x:1,y:1)
+let vector2 = Vector2D(x:2,y:3)
+var vectorResult = vector1 + vector2
+
+@prefix func -(vector : Vector2D)
+{
+	return Vector2D(x : -vector.x, y : -vector.y)
+}
+vectorResult = -vector1
+
+@postfix func +(vector : Vector2D)
+{
+	return Vector2D(x : vector.x+1, y : vector.y+1)
+}
+vectorResult = vector1+
+
+@assignment func +=(inout left : Vector2D, right : Vector2D)
+{
+	left = left + right
+}
+vectorResult += vector1
+
+operator prefix >! {}
+@prefix func >! (vector : Vector2D)
+{
+	return Vector2D(x : vector.x*2, y : Vector.y*2)
+}
+vectorResult = >!vector1
